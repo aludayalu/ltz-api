@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumatozer</title>
+</head>
+<body>
+    
+    <style>
+        .center{
+            text-align: center;
+            padding: 330px;        
+        }
+        #addr{
+            line-height: 60px;
+        }
+        body, html {
+  height: 100%;
+}
+body, html {
+  height: 100%;
+  margin: 0;
+}
+.bg-image {
+  /* The image used */
+  background-image: url("https://images.unsplash.com/photo-1639815188546-c43c240ff4df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80");
+  
+  /* Add the blur effect */
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  
+  /* Full height */
+  height: 100%; 
+  
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* Position text in the middle of the page/image */
+.bg-text {
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+  color: white;
+  font-weight: bold;
+  border: 3px solid #f1f1f1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 80%;
+  padding: 20px;
+  text-align: center;
+}
+    </style>
+<div class="bg-image">
+    </div>
+    <div class="bg-text">
+    <div class="center">
+        <h1 id="liq">Liquidity : </h1>
+        <h1 id="ltz">Coins : </h1>
+        <h1 id="price">Price : </h1>
+        <h1 id="addr">Exchange Address : a18fecf1b494e74f5c9412a828566e1845845d68ca0addf3922f0bcf198e9f9e</h1>
+        <div class="bg-image"></div>
+    </div>
+</div>
+<script>
+   function httpget(theUrl){
+  try{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+    }catch(err) {
+      console.log("Error")
+    }
+}
+</script>
+<script>
+    var apires=JSON.parse(httpget("https://ltz-api-aludayalu.vercel.app/api/liquidity"));
+    var liq=apires["funds"];
+    var coins=apires["coins"];
+    document.getElementById("liq").innerText="Liquidity : ₹"+liq;
+    document.getElementById("ltz").innerText="Coins : "+coins+" LTZ";
+    document.getElementById("price").innerText="∴ Price per coin : ₹"+liq/coins+" per LTZ";
+</script>
+</body>
+</html>
